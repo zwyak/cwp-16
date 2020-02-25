@@ -1,27 +1,41 @@
 const Promise = require('bluebird');
 const axios = require('axios');
 
-// 1 - Parallel requests
-axios.get('https://pokeapi.co/api/v2/pokemon/1')
-  .then((response) => {
-    console.log(`Name: ${response.data.name} Height: ${response.data.height} Weight: ${response.data.weight}`);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+const getPokemon = (id) =>{
+  axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    .then((response) => {
+      console.log(`Name: ${response.data.name} Height: ${response.data.height} Weight: ${response.data.weight}`);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
 
-axios.get('https://pokeapi.co/api/v2/pokemon/2')
-  .then((response) => {
-    console.log(`Name: ${response.data.name} Height: ${response.data.height} Weight: ${response.data.weight}`);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+async function getPokemonsAll(){
+  try{
+    await Promise.all([
+      getPokemon(1),
+      getPokemon(2),
+      getPokemon(3)
+    ]);
+  }
+  catch(err){
+    console.error(err);
+  }
+}
 
-axios.get('https://pokeapi.co/api/v2/pokemon/3')
-  .then((response) => {
-    console.log(`Name: ${response.data.name} Height: ${response.data.height} Weight: ${response.data.weight}`);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+async function getPokemonsAny(){
+  try{
+    await Promise.any([
+      getPokemon(1),
+      getPokemon(2),
+      getPokemon(3)
+    ]);
+  }
+  catch(err){
+    console.error(err);
+  }
+}
+
+//getPokemonsAll();
+//getPokemonsAny();
