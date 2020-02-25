@@ -3,6 +3,7 @@
   "author": "Vlad Senyuk",
   "dependencies": {
     "axios": "^0.19.2",
-    "bluebird": "^3.7.2"
+    "bluebird": "^3.7.2",
+    "co": "^4.6.0"
   }
 }
