@@ -12,10 +12,11 @@ const getPokemon = (id) =>{
     });
 }
 
-co(function *(){
-  const result = yield Promise.all([getPokemon(1), getPokemon(2)]);
-}).catch(onerror);
+const fn = co.wrap(function *(){
+  yield Promise.all([getPokemon(1)]);
+  yield Promise.all([getPokemon(2)]);
+});
 
-function onerror(err) {
-  console.error(err.stack);
-}
+fn(true).then(function() {
+  console.info('Fs was done')
+});
